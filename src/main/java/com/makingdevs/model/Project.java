@@ -14,15 +14,6 @@ public class Project {
   private List<UserStory> userStories;
   private List<User> participants;
   
-  public Project(){ super(); }
-
-  public Project(Long id, String name, String codeName, String description) {
-    super();
-    this.id = id;
-    this.name = name;
-    this.codeName = codeName;
-    this.description = description;
-  }
   public Long getId() {
     return id;
   }

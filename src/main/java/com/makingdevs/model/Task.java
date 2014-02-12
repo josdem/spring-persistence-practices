@@ -13,8 +13,6 @@ public class Task {
   private UserStory userStory;
   private List<User> participants;
   
-  public Task(){ super(); }
-  
   public Long getId() {
     return id;
   }

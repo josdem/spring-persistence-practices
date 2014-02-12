@@ -5,24 +5,18 @@ import java.util.Date;
 public class User {
   private Long id;
   private String username;
-  private boolean isEnabled;
+  private boolean enabled;
   private Date dateCreated;
   private Date lastUpdated;
   
-  public User(){ super(); }
-  
-  public User(Long id, String username, boolean isEnabled) {
-    super();
-    this.id = id;
-    this.username = username;
-    this.isEnabled = isEnabled;
-  }
   public boolean isEnabled() {
-    return isEnabled;
+    return enabled;
   }
-  public void setEnabled(boolean isEnabled) {
-    this.isEnabled = isEnabled;
+
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
   }
+
   public Long getId() {
     return id;
   }
