@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+
+  <jdbc:embedded-database type="H2" id="dataSource">
+    <jdbc:script location="classpath:/com/makingdevs/scripts/user.sql"/>
+  </jdbc:embedded-database>
+
+  
+  <util:properties id="dbProperties" location="classpath:/com/makingdevs/practica1/db.properties" />
+  
+  <!--
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="username" value="#{dbProperties['mainDataSource.username']}"/>
+    <property name="password" value="#{dbProperties['mainDataSource.password']}"/>
+    <property name="url" value="#{dbProperties['mainDataSource.url']}"/>
+    <property name="driverClassName" value="#{dbProperties['mainDataSource.driverClassName']}"/>
+  </bean>
+  -->
+  
+  <!-- 
+  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="user" value="#{dbProperties['mainDataSource.username']}"/>
+    <property name="password" value="#{dbProperties['mainDataSource.password']}"/>
+    <property name="jdbcUrl" value="#{dbProperties['mainDataSource.url']}"/>
+    <property name="driverClass" value="#{dbProperties['mainDataSource.driverClassName']}"/>
+  </bean>
+  -->
+  
+  <!--
+  <jee:jndi-lookup jndi-name="jdbc/MyDataSource" id="dataSource"/>
+  -->
+
+</beans>
