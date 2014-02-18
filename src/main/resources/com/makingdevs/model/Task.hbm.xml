@@ -19,10 +19,10 @@
             </type>
         </property>
         <property name="dateCreated" type="java.util.Date">
-            <column name="DATECREATED" />
+            <column name="DATE_CREATED" />
         </property>
         <property name="lastUpdated" type="java.util.Date">
-            <column name="LASTUPDATED" />
+            <column name="LAST_UPDATED" />
         </property>
         <many-to-one name="userStory" class="com.makingdevs.model.UserStory" fetch="join">
             <column name="USERSTORY" />

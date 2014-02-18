@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.makingdevs.model.UserStory" table="USERSTORY">
+    <class name="com.makingdevs.model.UserStory" table="USER_STORY">
         <id name="id" type="java.lang.Long">
             <column name="ID" />
             <generator class="assigned" />
