@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.makingdevs.model.UserStory" table="USERSTORY">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="priority" type="java.lang.Integer">
+            <column name="PRIORITY" />
+        </property>
+        <property name="effort" type="java.lang.Integer">
+            <column name="EFFORT" />
+        </property>
+        <property name="dateCreated" type="java.util.Date">
+            <column name="DATECREATED" />
+        </property>
+        <property name="lastUpdated" type="java.util.Date">
+            <column name="LASTUPDATED" />
+        </property>
+        <many-to-one name="project" class="com.makingdevs.model.Project" fetch="join">
+            <column name="PROJECT" />
+        </many-to-one>
+        <list name="tasks" inverse="false" table="TASK" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <list-index></list-index>
+            <one-to-many class="com.makingdevs.model.Task" />
+        </list>
+    </class>
+</hibernate-mapping>

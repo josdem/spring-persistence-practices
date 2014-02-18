@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.makingdevs.model.Task" table="TASK">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="status">
+            <column name="STATUS" />
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">com.makingdevs.model.TaskStatus</param>
+            </type>
+        </property>
+        <property name="dateCreated" type="java.util.Date">
+            <column name="DATECREATED" />
+        </property>
+        <property name="lastUpdated" type="java.util.Date">
+            <column name="LASTUPDATED" />
+        </property>
+        <many-to-one name="userStory" class="com.makingdevs.model.UserStory" fetch="join">
+            <column name="USERSTORY" />
+        </many-to-one>
+        <list name="participants" inverse="false" table="USER" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <list-index></list-index>
+            <one-to-many class="com.makingdevs.model.User" />
+        </list>
+    </class>
+</hibernate-mapping>
