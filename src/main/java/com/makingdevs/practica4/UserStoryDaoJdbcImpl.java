@@ -24,7 +24,7 @@ public class UserStoryDaoJdbcImpl extends JdbcDaoSupport implements UserStoryDao
   private static String sqlQuery = "SELECT * FROM user_story";
 
   @Override
-  public Long create(UserStory newInstance) {
+  public void create(UserStory newInstance) {
     String sqlInsert = "INSERT INTO user_story(DATE_CREATED,DESCRIPTION,EFFORT,LAST_UPDATED,PRIORITY,PROJECT_ID) "
         + "VALUES(?,?,?,?,?,?);";
     getJdbcTemplate().update(sqlInsert, new Date(), newInstance.getDescription(), newInstance.getEffort(), new Date(),
@@ -32,7 +32,7 @@ public class UserStoryDaoJdbcImpl extends JdbcDaoSupport implements UserStoryDao
     Long userStoryId = getJdbcTemplate().queryForObject(
         "SELECT id FROM user_story WHERE DESCRIPTION = ? AND PROJECT_ID = ?",
         new Object[] { newInstance.getDescription(), newInstance.getProject().getId() }, Long.class);
-    return userStoryId;
+    newInstance.setId(userStoryId);
   }
 
   @Override

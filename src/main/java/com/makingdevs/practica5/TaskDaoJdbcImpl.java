@@ -31,7 +31,7 @@ public class TaskDaoJdbcImpl extends NamedParameterJdbcDaoSupport implements Tas
   private static String sqlQuery = "SELECT * FROM TASK ";
 
   @Override
-  public Long create(Task newInstance) {
+  public void create(Task newInstance) {
     String sqlInsert = "INSERT INTO TASK(DATE_CREATED,DESCRIPTION,LAST_UPDATED,STATUS,USER_STORY_ID)"
         + " VALUES(:DATE_CREATED,:DESCRIPTION,:LAST_UPDATED,:STATUS,:USER_STORY_ID)";
     Map<String, Object> inputParameters = new HashMap<String, Object>();
@@ -42,7 +42,8 @@ public class TaskDaoJdbcImpl extends NamedParameterJdbcDaoSupport implements Tas
     inputParameters.put("USER_STORY_ID", newInstance.getUserStory().getId());
     getNamedParameterJdbcTemplate().update(sqlInsert, inputParameters);
     String sqlForPrimaryKey = "SELECT ID FROM TASK WHERE DESCRIPTION = :DESCRIPTION AND STATUS = :STATUS";
-    return getNamedParameterJdbcTemplate().queryForObject(sqlForPrimaryKey, inputParameters, Long.class);
+    Long currentId = getNamedParameterJdbcTemplate().queryForObject(sqlForPrimaryKey, inputParameters, Long.class);
+    newInstance.setId(currentId);
   }
 
   @Override
@@ -93,7 +94,7 @@ public class TaskDaoJdbcImpl extends NamedParameterJdbcDaoSupport implements Tas
 
   @Override
   public List<Task> findAllByUser(User user) {
- // Is your turn!!!!
+    // Is your turn!!!!
     return null;
   }
 

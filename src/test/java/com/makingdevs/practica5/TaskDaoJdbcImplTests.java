@@ -41,8 +41,9 @@ public class TaskDaoJdbcImplTests {
     UserStory userStory = new UserStory();
     userStory.setId(1L);
     task.setUserStory(userStory);
-    taskId = taskDao.create(task);
-    isTrue(taskId > 0);
+    taskDao.create(task);
+    isTrue(task.getId() > 0);
+    taskId = task.getId();
   }
 
   @Test

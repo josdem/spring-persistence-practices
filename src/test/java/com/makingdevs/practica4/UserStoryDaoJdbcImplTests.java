@@ -44,8 +44,9 @@ public class UserStoryDaoJdbcImplTests {
     Project p = new Project();
     p.setId(1L);
     us.setProject(p);
-    userStoryId = userStoryDao.create(us);
-    isTrue(userStoryId > 0);
+    userStoryDao.create(us);
+    isTrue(us.getId() > 0);
+    userStoryId = us.getId(); 
   }
 
   @Test
