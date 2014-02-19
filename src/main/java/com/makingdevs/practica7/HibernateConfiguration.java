@@ -3,10 +3,10 @@ package com.makingdevs.practica7;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 import com.makingdevs.dao.ProjectDao;
@@ -44,5 +44,11 @@ public class HibernateConfiguration {
   @Bean
   public ProjectDao projectDao() {
     return new ProjectDaoHibernateImpl(sessionFactory().getObject());
+  }
+  
+  @Bean
+  public HibernateTransactionManager transactionManager(){
+    HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory().getObject());
+    return transactionManager;
   }
 }
