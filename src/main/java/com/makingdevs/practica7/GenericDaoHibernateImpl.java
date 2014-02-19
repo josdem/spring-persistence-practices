@@ -5,66 +5,67 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.criterion.Projections;
 
 import com.makingdevs.dao.GenericDao;
 
-public class GenericDaoHibernateImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
-  
-  @Autowired
-  SessionFactory sessionFactory;
-  
+public abstract class GenericDaoHibernateImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
+
+  private SessionFactory sessionFactory;
+
   private Class<T> type = null;
+
+  public SessionFactory getSessionFactory() {
+    return sessionFactory;
+  }
+
+  public void setSessionFactory(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
   @Override
   public void create(T newInstance) {
     sessionFactory.getCurrentSession().save(newInstance);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public T read(PK id) {
-    // TODO Auto-generated method stub
-    return null;
+    return (T) sessionFactory.getCurrentSession().get(getType(), id);
   }
 
   @Override
   public void update(T transientObject) {
-    // TODO Auto-generated method stub
-    
+    sessionFactory.getCurrentSession().update(transientObject);
   }
 
   @Override
   public void delete(T persistentObject) {
-    // TODO Auto-generated method stub
-    
+    sessionFactory.getCurrentSession().delete(persistentObject);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public List<T> findAll() {
-    // TODO Auto-generated method stub
-    return null;
+    return sessionFactory.getCurrentSession().createCriteria(getType()).list();
   }
 
   @Override
   public int countAll() {
-    // TODO Auto-generated method stub
-    return 0;
+    return (Integer) sessionFactory.getCurrentSession().createCriteria(getType()).setProjection(Projections.rowCount())
+        .uniqueResult();
   }
-  
-  
+
   @SuppressWarnings("unchecked")
   public Class<T> getType() {
     if (type == null) {
       Class<?> clazz = getClass();
-
       while (!(clazz.getGenericSuperclass() instanceof ParameterizedType)) {
         clazz = clazz.getSuperclass();
       }
-
-      type = (Class<T>) ((ParameterizedType) clazz.getGenericSuperclass())
-          .getActualTypeArguments()[0];
+      type = (Class<T>) ((ParameterizedType) clazz.getGenericSuperclass()).getActualTypeArguments()[0];
     }
     return type;
   }
-  
+
 }
