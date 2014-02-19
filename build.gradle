@@ -24,7 +24,11 @@ dependencies {
   compile 'com.h2database:h2:1.3.175'
   compile 'commons-dbcp:commons-dbcp:1.4'
   compile 'c3p0:c3p0:0.9.1.2'
-  compile 'org.hibernate:hibernate-core:4.3.1.Final'
+  //compile 'org.hibernate:hibernate-core:4.3.1.Final'
+  // Hibernate 3
+  compile 'org.hibernate:hibernate-core:3.6.10.Final'
+  compile 'javassist:javassist:3.12.1.GA'
+  // Hibernate 3
 }
 
 task wrapper(type: Wrapper) {
