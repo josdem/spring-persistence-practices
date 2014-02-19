@@ -8,8 +8,8 @@ repositories {
   mavenCentral()
 }
 
-def springVersion = '4.0.0.RELEASE'
-def aspectjVersion = '1.7.4'
+ext.springVersion = '4.0.0.RELEASE'
+ext.aspectjVersion = '1.7.4'
 
 dependencies {
   testCompile 'junit:junit:4.11'
