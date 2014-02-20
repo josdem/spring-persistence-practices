@@ -10,11 +10,11 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
   <jdbc:embedded-database type="H2" id="dataSource">
-    <jdbc:script location="classpath:/com/makingdevs/scripts/user.sql"/>
-    <jdbc:script location="classpath:/com/makingdevs/scripts/project.sql"/>
-    <jdbc:script location="classpath:/com/makingdevs/scripts/user_story.sql"/>
-    <jdbc:script location="classpath:/com/makingdevs/scripts/task.sql"/>
-    <jdbc:script location="classpath:/com/makingdevs/scripts/constraints.sql"/>
+    <jdbc:script location="com/makingdevs/scripts/user.sql"/>
+    <jdbc:script location="com/makingdevs/scripts/project.sql"/>
+    <jdbc:script location="com/makingdevs/scripts/user_story.sql"/>
+    <jdbc:script location="com/makingdevs/scripts/task.sql"/>
+    <jdbc:script location="com/makingdevs/scripts/constraints.sql"/>
   </jdbc:embedded-database>
   
   <!-- 
