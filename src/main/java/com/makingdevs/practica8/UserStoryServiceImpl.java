@@ -1,5 +1,6 @@
 package com.makingdevs.practica8;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -55,13 +56,27 @@ public class UserStoryServiceImpl implements UserStoryService {
 
   @Override
   public boolean isUserStoryDone(Long userStoryId) {
-    // TODO Auto-generated method stub
+    transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+      @Override
+      protected void doInTransactionWithoutResult(TransactionStatus status) {
+        try {
+          throw new IOException("Checked exception");
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    });
     return false;
   }
 
   @Override
   public UserStory findUserStoryByIdentifier(Long userStoryId) {
-    // TODO Auto-generated method stub
+    transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+      @Override
+      protected void doInTransactionWithoutResult(TransactionStatus status) {
+        throw new UnsupportedOperationException("Runtime exception");
+      }
+    });
     return null;
   }
 

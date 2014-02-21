@@ -3,8 +3,10 @@ package com.makingdevs.practica8;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,13 +17,14 @@ import com.makingdevs.services.UserStoryService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TransactionTemplateConfig.class })
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProgrammaticTransactionsTests {
-  
+
   @Autowired
   UserStoryService userStoryService;
 
   @Test
-  public void testCreateUSWithTx() {
+  public void test1CreateUSWithTx() {
     UserStory us = new UserStory();
     us.setDescription("As an user...I want...Beacuse...");
     us.setEffort(5);
@@ -31,13 +34,23 @@ public class ProgrammaticTransactionsTests {
     us.setProject(p);
     userStoryService.createUserStory(us);
     Assert.assertTrue(us.getId() > 0);
-    System.out.println(us.getId() );
+    System.out.println(us.getId());
   }
-  
+
   @Test
-  public void testFindUSByProjectCodeNameWithTX(){
+  public void test2FindUSByProjectCodeNameWithTX() {
     List<UserStory> userStories = userStoryService.findUserStoriesByProject("PROJECTNAME");
     Assert.assertTrue(userStories.size() > 0);
+  }
+
+  @Test
+  public void test3FindCheckedExceptionTX() {
+    userStoryService.isUserStoryDone(1L);
+  }
+
+  @Test(expected = RuntimeException.class)
+  public void test4FindUncheckedExceptionTX() {
+    userStoryService.findUserStoryByIdentifier(1L);
   }
 
 }
