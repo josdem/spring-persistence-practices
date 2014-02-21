@@ -25,6 +25,8 @@ dependencies {
   compile 'commons-dbcp:commons-dbcp:1.4'
   compile 'c3p0:c3p0:0.9.1.2'
   compile 'org.hibernate:hibernate-entitymanager:4.3.1.Final'
+  compile 'mysql:mysql-connector-java:5.1.29'
+  compile 'org.liquibase:liquibase-core:3.1.1'
 }
 
 task wrapper(type: Wrapper) {
