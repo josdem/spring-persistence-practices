@@ -21,5 +21,6 @@
 	<include file="com/makingdevs/practica12/task.sql"/>
 	<include file="com/makingdevs/practica12/user.sql"/>
 	<include file="com/makingdevs/practica12/constraints.sql"/>
+	<include file="com/makingdevs/practica12/rename-column.sql"/>
 
 </databaseChangeLog>
