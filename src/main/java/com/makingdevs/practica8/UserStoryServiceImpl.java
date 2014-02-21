@@ -1,6 +1,5 @@
 package com.makingdevs.practica8;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -14,14 +13,15 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.makingdevs.dao.UserStoryDao;
 import com.makingdevs.model.Project;
 import com.makingdevs.model.UserStory;
-import com.makingdevs.services.UserStoryService;
+import com.makingdevs.services.BusinessException;
+import com.makingdevs.services.UserStoryServiceChecked;
 
 @Service
-public class UserStoryServiceImpl implements UserStoryService {
-  
+public class UserStoryServiceImpl implements UserStoryServiceChecked {
+
   @Autowired
   TransactionTemplate transactionTemplate;
-  
+
   @Autowired
   UserStoryDao userStoryDao;
 
@@ -55,13 +55,13 @@ public class UserStoryServiceImpl implements UserStoryService {
   }
 
   @Override
-  public boolean isUserStoryDone(Long userStoryId) {
+  public boolean isUserStoryDone(Long userStoryId) throws BusinessException {
     transactionTemplate.execute(new TransactionCallbackWithoutResult() {
       @Override
       protected void doInTransactionWithoutResult(TransactionStatus status) {
         try {
-          throw new IOException("Checked exception");
-        } catch (IOException e) {
+          throw new BusinessException("CheckedExcpetion");
+        } catch (BusinessException e) {
           e.printStackTrace();
         }
       }

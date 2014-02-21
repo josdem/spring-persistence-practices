@@ -13,7 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.makingdevs.model.Project;
 import com.makingdevs.model.UserStory;
-import com.makingdevs.services.UserStoryService;
+import com.makingdevs.services.BusinessException;
+import com.makingdevs.services.UserStoryServiceChecked;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TransactionTemplateConfig.class })
@@ -21,7 +22,7 @@ import com.makingdevs.services.UserStoryService;
 public class ProgrammaticTransactionsTests {
 
   @Autowired
-  UserStoryService userStoryService;
+  UserStoryServiceChecked userStoryService;
 
   @Test
   public void test1CreateUSWithTx() {
@@ -44,7 +45,7 @@ public class ProgrammaticTransactionsTests {
   }
 
   @Test
-  public void test3FindCheckedExceptionTX() {
+  public void test3FindCheckedExceptionTX() throws BusinessException {
     userStoryService.isUserStoryDone(1L);
   }
 
