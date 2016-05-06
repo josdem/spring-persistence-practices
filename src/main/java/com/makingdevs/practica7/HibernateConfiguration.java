@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.makingdevs.dao.ProjectDao;
@@ -50,7 +51,7 @@ public class HibernateConfiguration {
   }
 
   @Bean
-  public HibernateTransactionManager transactionManager(){
+  public PlatformTransactionManager transactionManager(){
     HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory().getObject());
     return transactionManager;
   }
