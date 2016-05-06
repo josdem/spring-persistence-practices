@@ -17,9 +17,9 @@ import com.makingdevs.services.BusinessException;
 import com.makingdevs.services.UserStoryServiceChecked;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "NoTxAppCtx.xml" })
+//@ContextConfiguration(locations = { "NoTxAppCtx.xml" })
 //@ContextConfiguration(locations = { "NoTxAppCtx.xml","DeclarativeTxAppCtx.xml" })
-//@ContextConfiguration(locations = { "NoTxAppCtx.xml","DeclarativeTxWithExceptionsAppCtx.xml" })
+@ContextConfiguration(locations = { "NoTxAppCtx.xml","DeclarativeTxWithExceptionsAppCtx.xml" })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DeclarativeTransactionsTests {
 

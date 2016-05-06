@@ -1,10 +1,12 @@
 package com.makingdevs.practica5;
 
+import static org.junit.Assert.*;
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notEmpty;
 
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -52,7 +54,16 @@ public class TaskDaoJdbcImplTests {
     Assert.assertNotNull(task);
     isTrue(task.getDescription().equals("A new task"));
   }
+  
+  @Test
+  public void test3UpdateTask() throws Exception {
+    Task task = taskDao.read(taskId);
+    assertNull(task.getLastUpdated());
+    task.setDescription("new description");
+    taskDao.update(task);
+    assertNotNull(task.getLastUpdated());
+    System.out.println("task: " + ToStringBuilder.reflectionToString(task));
+  }
 
-  // Your responsability is to test!!!!
 
 }

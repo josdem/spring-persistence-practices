@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class DeclaringDataSourceTests {
   public void test() throws SQLException {
     Assert.notNull(dataSource);
     Assert.notNull(dataSource.getConnection());
+    System.out.println("dataSource: " + ToStringBuilder.reflectionToString(dataSource));
   }
 
 }

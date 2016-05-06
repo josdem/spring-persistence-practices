@@ -32,6 +32,7 @@ public class ProgrammaticTransactionsTests {
     us.setPriority(3);
     Project p = new Project();
     p.setId(1L);
+    p.setCodeName("PROJECTNAME");
     us.setProject(p);
     userStoryService.createUserStory(us);
     Assert.assertTrue(us.getId() > 0);

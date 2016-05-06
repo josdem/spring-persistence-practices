@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+  <context:component-scan base-package="com.makingdevs.practica7" />
+
+  <jdbc:embedded-database type="H2" id="dataSource">
+    <jdbc:script location="classpath:/com/makingdevs/scripts/user.sql" />
+    <jdbc:script location="classpath:/com/makingdevs/scripts/project.sql" />
+    <jdbc:script location="classpath:/com/makingdevs/scripts/user_story.sql" />
+    <jdbc:script location="classpath:/com/makingdevs/scripts/task.sql" />
+    <jdbc:script location="classpath:/com/makingdevs/scripts/constraints.sql" />
+  </jdbc:embedded-database>
+
+  <bean id="sessionFactory"
+    class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="mappingResources">
+      <list>
+        <value>com/makingdevs/model/User.hbm.xml</value>
+        <value>com/makingdevs/model/Project.hbm.xml</value>
+        <value>com/makingdevs/model/UserStory.hbm.xml</value>
+        <value>com/makingdevs/model/Task.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <value>
+        hibernate.dialect=org.hibernate.dialect.H2Dialect
+      </value>
+    </property>
+  </bean>
+
+  <bean
+    class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+  <!-- This is very important, but it's explained later!!! Don't Worry about... -->
+  <bean id="transactionManager"
+    class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <aop:config>
+    <aop:pointcut id="allMethods"
+      expression="execution(public * com.makingdevs.practica7.**.*(..))" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="allMethods" />
+  </aop:config>
+
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="*" />
+    </tx:attributes>
+  </tx:advice>
+
+</beans>

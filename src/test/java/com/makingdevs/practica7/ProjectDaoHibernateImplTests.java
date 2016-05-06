@@ -13,6 +13,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -22,15 +23,16 @@ import com.makingdevs.dao.ProjectDao;
 import com.makingdevs.model.Project;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "HibernateAppCtx.xml" })
+@ContextConfiguration(classes = { HibernateConfiguration.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class ProjectDaoHibernateImplTests {
 
   @Autowired
   ProjectDao projectDao;
   @Autowired
   DataSource dataSource;
-  
+
   private static Long projectId;
 
   @Test
@@ -51,7 +53,7 @@ public class ProjectDaoHibernateImplTests {
     Assert.isTrue(project.getId() > 0);
     projectId = project.getId();
   }
-  
+
   @Test
   public void test2ReadProject(){
     Project project = projectDao.read(projectId);
@@ -59,7 +61,7 @@ public class ProjectDaoHibernateImplTests {
     assertEquals("New Project", project.getName());
     assertEquals("NEWPROJECT", project.getCodeName());
   }
-  
+
   @Test
   public void test3UpdateProject(){
     Project project = projectDao.read(projectId);
@@ -70,14 +72,14 @@ public class ProjectDaoHibernateImplTests {
     Project projectUpdated = projectDao.read(projectId);
     assertNotEquals(originalCodeName, projectUpdated.getCodeName());
   }
-  
-  @Test 
+
+  @Test
   public void test4FindProjectByCodeName(){
     Project project = projectDao.findByCodename("PROJECTUPDATED");
     assertEquals("PROJECTUPDATED", project.getCodeName());
   }
-  
-  @Test 
+
+  @Test
   public void test5DeleteProject(){
     Project project = projectDao.read(projectId);
     projectDao.delete(project);

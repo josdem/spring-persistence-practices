@@ -1,6 +1,7 @@
 package com.makingdevs.practica4;
 
 import static org.springframework.util.Assert.isTrue;
+import static org.springframework.util.Assert.notEmpty;
 
 import java.util.List;
 
@@ -17,7 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.makingdevs.dao.UserStoryDao;
 import com.makingdevs.model.Project;
 import com.makingdevs.model.UserStory;
-import static org.springframework.util.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "FirstDaoAppCtx.xml", "../practica1/DataSourceWithNamespace.xml" })
@@ -37,7 +37,7 @@ public class UserStoryDaoJdbcImplTests {
 
   @Test
   public void test1CreateUserStory() {
-    UserStory us = new UserStory();
+    UserStory us = new UserStory(); 
     us.setEffort(3);
     us.setPriority(1);
     us.setDescription("As user... I want... In order to...");
@@ -46,7 +46,7 @@ public class UserStoryDaoJdbcImplTests {
     us.setProject(p);
     userStoryDao.create(us);
     isTrue(us.getId() > 0);
-    userStoryId = us.getId(); 
+    userStoryId = us.getId();
   }
 
   @Test
