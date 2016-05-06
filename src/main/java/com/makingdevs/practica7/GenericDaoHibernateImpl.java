@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.makingdevs.dao.GenericDao;
 
+@Transactional
 public abstract class GenericDaoHibernateImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
 
   private SessionFactory sessionFactory;
